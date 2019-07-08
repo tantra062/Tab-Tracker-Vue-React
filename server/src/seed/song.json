@@ -1,0 +1,32 @@
+[
+    {
+        "title" : "Float On",
+        "artist" : "Modest Mouse",
+        "genre" : "Alternative Rock",
+        "album" : "Good news for people who love bad news",
+        "albumImageUrl" : "http://images.45cat.com/modest-mouse-float-on-epic.jpg",
+        "youtubeId" : "CTAud507Qqk",
+        "lyrics" : "",
+        "tab" : ""
+    },
+    {
+        "title" : "Tanduay",
+        "artist" : "Parokya ni edgar",
+        "genre" : "Rock",
+        "album" : "Pogi Years Old",
+        "albumImageUrl" : "https://i.scdn.co/image/2eec0be2b21a19b91cce2624e0d5ef79db834a5e",
+        "youtubeId" : "t-c0ctix3yc",
+        "lyrics" : "",
+        "tab" : ""
+    },
+    {
+        "title" : "Ulan",
+        "artist" : "Parokya ni edgar",
+        "genre" : "Rock",
+        "album" : "Pogi Years Old",
+        "albumImageUrl" : "https://i.scdn.co/image/2eec0be2b21a19b91cce2624e0d5ef79db834a5e",
+        "youtubeId" : "xVYcAB1wMLw",
+        "lyrics" : "",
+        "tab" : ""
+    }
+]
