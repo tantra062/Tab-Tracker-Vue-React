@@ -1,5 +1,9 @@
-const AuthenticationController = require('../controller/AuthenticationController')
+const AuthenticationController = require('../controller/AuthenticationController');
+const AuthenticationMiddleware = require('../middleware/AuthenticationControllerMiddleware');
+
 module.exports = (app)=>{
     app.get('/', AuthenticationController.home)
-    app.get('/register', AuthenticationController.register)
+    app.post('/register', AuthenticationMiddleware.register, AuthenticationController.register)
+    app.get('/login', AuthenticationController.login)
+
 }
