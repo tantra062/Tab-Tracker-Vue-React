@@ -1,4 +1,14 @@
-const {User} = require('../models')
+const {User} = require('../models');
+const jwt = require('jsonwebtoken');
+const config = require('../config');
+
+function jwtSignUser(user){
+    const ONE_WEEK = 60 * 60 * 24 * 7;
+    return jwt.sign(user, config.authentication.jwtSecret, {
+        expiresIn:ONE_WEEK
+    })
+}
+
 module.exports = {
     async register(req, res){
         try{
@@ -23,8 +33,8 @@ module.exports = {
                     error: `The can't find a user with an email of ${email}`
                 })
             }
-            const isPasswordValid = password === user.password;
-            console.log(isPasswordValid)
+            
+            const isPasswordValid = await user.comparePassword(password);
             if(!isPasswordValid){
                 return res.status(403).send({
                     error: `Invalid password.`
@@ -32,11 +42,12 @@ module.exports = {
             }
             const userJson = user.toJSON();
             res.send({
-                user: userJson
+                user: userJson,
+                token: jwtSignUser(userJson)
             })
         }catch(e){
-            res.status(400).send({
-                error: e
+            res.status(500).send({
+                error: `Something went wrong while trying to login.`
             })
         }
     },
