@@ -2,7 +2,7 @@ import Api from '@/services/Api';
 
 export default{
     index(value){
-        return Api().get('songs/',{
+        return Api().get('songs/', {
             params:{
                 search:value
             }
@@ -12,11 +12,11 @@ export default{
         return Api().post('songs/', song)
     },
     show(id){
-        return Api().get(`song/${id}`)
+        return Api().get(`songs/${id}`)
     },
     update(song){
         try{
-            return Api().patch(`song/${song.id}/update`, song)
+            return Api().put(`song/${song.id}/update`, song)
         }catch(err){
             console.log(err)
         }

@@ -4,13 +4,31 @@ const {Song} = require('../models');
 module.exports = {
     async index(req, res){
         try{
-            const songs = await Song.findAll({
-                limit:10
-            })
+            let songs = null;
+            const search = req.query.search;
+            console.log(search)
+            if(search){
+                songs = await Song.findAll({
+                    where:{
+                        $or:[
+                            "title", "artist", "genre", "album"
+                        ].map(key =>({
+                            [key]: {
+                                $like: `%${search}%`
+                            }
+                        }))
+                    }
+                })
+                console.log(songs)
+            }else{
+                songs = await Song.findAll({
+                    limit:10
+                })
+            }
             res.send(songs)
         }catch(e){
             res.status(500).send({
-                error: 'An error has occured while trying to fetch the list of songs..'
+                error: `An error has occured while trying to fetch the list of songs.. ${e}`
             })
         }
     },
@@ -27,9 +45,7 @@ module.exports = {
     async show(req, res){
         try{
             const song = await Song.findByPk(req.params.id)
-            res.send({
-                Message:song
-            })
+            res.send(song)
         }catch(e){
             res.status(500).send({
                 error: `An error has occured while fetching the data.`
