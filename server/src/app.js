@@ -2,7 +2,8 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const config = require('../src/config/');
+const {sequelize} = require('./models/');
+const config = require('./config/');
 
 const app = express();
 
@@ -11,6 +12,12 @@ app.use(bodyParser.json())
 app.use(morgan('combined'))
 app.use(cors())
 
-app.listen(process.env.PORT|| config.PORT ,()=>{
-    console.log(`Server Started at ${config.PORT}`)
-})
+require('./passport')
+
+require('./route')(app)
+
+sequelize.sync()
+    .then(()=>{
+        app.listen(config.port)
+        console.log(`Server Started at ${config.port}`)
+    })
