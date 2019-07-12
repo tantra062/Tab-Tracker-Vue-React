@@ -1,9 +1,9 @@
 module.exports = (sequelize, dataType)=>{
-    const Histories = sequelize.define('Histories', {})
+    const History = sequelize.define('History', {})
 
-    Histories.associate = function(models) {
-        Histories.belongsTo(models.User)
-        Histories.belongsTo(models.Song)
+    History.associate = function(models) {
+        History.belongsTo(models.User)
+        History.belongsTo(models.Song)
     }
-    return Histories
+    return History
 }

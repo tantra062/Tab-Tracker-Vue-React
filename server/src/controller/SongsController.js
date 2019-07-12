@@ -6,20 +6,18 @@ module.exports = {
         try{
             let songs = null;
             const search = req.query.search;
-            console.log(search)
             if(search){
                 songs = await Song.findAll({
-                    where:{
-                        $or:[
+                    where: {
+                        $or: [
                             "title", "artist", "genre", "album"
-                        ].map(key =>({
+                        ].map((key)=>({
                             [key]: {
                                 $like: `%${search}%`
                             }
                         }))
                     }
                 })
-                console.log(songs)
             }else{
                 songs = await Song.findAll({
                     limit:10
@@ -54,8 +52,6 @@ module.exports = {
     },
     async put(req, res){
         try{
-            console.log(req.body)
-            console.log(req.params.id)
             const song = await Song.update(req.body,{
                 where:{
                     id: req.params.id
