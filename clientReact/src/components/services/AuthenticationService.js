@@ -1,12 +1,11 @@
-import Api from '@/services/Api';
+import Api from './Api';
 
 export default{
     logincs(){
         return Api().get('login')
     },
-    login(credentials){
-        console.log(credentials)
-        return Api().post('login', credentials)
+    login({email, password}){
+        return Api().post('login', {email:email, password:password})
     },
     register(credentials){
         return Api().post('register', credentials)
