@@ -1,11 +1,13 @@
 import Api from './Api';
 
 export default{
-    index(bookmark){
-        return Api().get(`bookmarks`, {params:bookmark}
+    index({UserId, token}){
+        return Api({token:token}).get(`bookmarks`, {params:UserId}
         )
     },
     post(bookmarks){
+        console.log(bookmarks)
+
         return Api().post('bookmarks',
             bookmarks
         )
@@ -18,3 +20,5 @@ export default{
 //create- /bookmark/                  -   POST Song  
 //delete- /bookmark/:id/delete        -   DELETE Song
 //
+
+

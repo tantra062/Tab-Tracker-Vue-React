@@ -14,7 +14,6 @@ const fontWeight = {
 }
 
 const SongPresentational = (props) =>{
-    // const value = useContext(SongContext);
     return (
     <div className="row">
         <div className="col m6">

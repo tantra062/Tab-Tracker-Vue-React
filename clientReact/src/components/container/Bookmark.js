@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import BookMarkService from '../services/BookmarksService';
+import React, { useState, useEffect, useContext} from 'react';
+import BookMarkService from '../../services/BookmarksService';
 import Collumns from '../presentational/tables/Collumns';
 import THead from '../presentational/tables/Head';
-import Panel from '../presentational/generic/Panel'
+import Panel from '../presentational/generic/Panel';
+import {AuthenticationContext} from '../../context/AuthenticationContext';
+
 
 
 const Bookmark = ()=> {
+    const {login} = useContext(AuthenticationContext)
     const [bookmark, setBookmark] = useState([]);
     const fetchData= async()=>{
         try{
             const response = (await BookMarkService.index({
-                UserId:1
+                UserId:login.user.id,
+                token:login.token
             })).data;
             setBookmark(response)
         }catch(e){

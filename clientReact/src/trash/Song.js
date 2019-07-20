@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import SearchContainer from '../presentational/SearchContainer';
 import SongPresentational from '../presentational/Song';
 import Panel from '../presentational/generic/Panel';
-import SongService from "../services/SongsService";
+import SongService from "../../services/SongsService";
 import qs from 'query-string';
 import SongTemplate from '../template/song/index';
-import History from '../container/History'
-import Bookmark from '../container/Bookmark'
 import _ from 'lodash';
  
 const Song = (props)=> {
+    console.log(props)
     const [songs, setSongs] = useState([]);
     const [search, setSearch] = useState(qs.parse(props.location.search));
 
@@ -45,12 +44,6 @@ const Song = (props)=> {
     const mapData = (arr)=>{
         return arr.map((song, index)=><SongPresentational song={song} key={index} />)
     }
-    const Historye=()=>{
-        return (<History></History>)
-    }
-    const Bookmarke=()=>{
-        return (<Bookmark></Bookmark>)
-    }
     const Layout = () =>(
         <div className="row">
             <div className="col s12 m12">
@@ -63,7 +56,7 @@ const Song = (props)=> {
             </div>
         </div>);
     return (
-        <SongTemplate Layout={Layout} History={Historye} Bookmark={Bookmarke} />
+        <SongTemplate Layout={Layout} />
     )
 }
 export default Song

@@ -2,7 +2,7 @@ import Api from './Api';
 
 export default{
     index(value){
-        return Api({token:'asdf'}).get('songs/', {
+        return Api().get('songs/', {
             params:{
                 search:value
             }

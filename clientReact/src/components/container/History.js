@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
-import HistoriesService from '../services/HistoriesService';
+import HistoriesService from '../../services/HistoriesService';
 import Collumns from '../presentational/tables/Collumns';
 import THead from '../presentational/tables/Head';
 import Panel from '../presentational/generic/Panel';
-import {AuthenticationContext} from '../context/AuthenticationContext'
+import {AuthenticationContext} from '../../context/AuthenticationContext'
 
 
 const History = ()=> {
     const [history, setHistory] = useState([]);
-    const [auth, setAuth] = useContext(AuthenticationContext);
 
     const fetchData= async()=>{
         try{
