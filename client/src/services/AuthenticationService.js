@@ -5,6 +5,7 @@ export default{
         return Api().get('login')
     },
     login(credentials){
+        console.log(credentials)
         return Api().post('login', credentials)
     },
     register(credentials){

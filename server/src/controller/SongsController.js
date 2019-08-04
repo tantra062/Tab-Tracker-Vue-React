@@ -10,7 +10,7 @@ module.exports = {
                 songs = await Song.findAll({
                     where: {
                         $or: [
-                            "title", "artist", "genre", "album"
+                            "id", "title", "artist", "genre", "album"
                         ].map((key)=>({
                             [key]: {
                                 $like: `%${search}%`
