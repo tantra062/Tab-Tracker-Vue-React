@@ -1,49 +1,31 @@
 import React, {useContext} from 'react';
-import SongList from '../../components/container/SongList';
-import Panel from '../../components/presentational/generic/Panel';
-import Search from '../../components/container/Search';
-import {AuthenticationContext} from '../../context/AuthenticationContext';
-import Bookmark from '../../components/container/Bookmark';
-import History from '../../components/container/History';
-const Songs = (props) => {
-    
-    const {login} = useContext(AuthenticationContext)
-    if(login.isLoggedIn){
-        return (
-            <>
-            <div className="row">
-                <div className="col s12 m4">
-                    <History></History>
-                    <Bookmark></Bookmark>
-                </div>
-                <div className="col m8">
-                    <div className="row">
-                        <div className="col s12 m12">
-                            <Search {...props} />
-                        </div>            
-                        <div className="col m12">
-                            <Panel title="Songs">
-                                <SongList {...props} />
-                            </Panel>
-                        </div>
-                    </div>
-                </div>
-            </div>
+import SongList from '../../components/SongList/Songs/SongList';
+import AuthContext from '../../components/AuthenticationComponent/Context/Context';
+import Bookmark from '../../components/SongList/Bookmark/Bookmark';
+import History from '../../components/SongList/History/History';
 
-            </>
-        )
-    }
+
+const Songs = (props) => {
+    const {session} = useContext(AuthContext)
+    const login = session
+
+    /////////////////////////////////////////////////////////////////////////////
+    ////PROBLEMM IS AFTER LOGIN, BOOKMARK AND HISTORY WONT PAINT IMMEDIATELY.////
+    /////////////////////////////////////////////////////////////////////////////
+    
     return (
+        <>
         <div className="row">
-            <div className="col s12 m12">
-                <Search {...props} />
-            </div>            
-            <div className="col m12">
-                <Panel title="Songs">
-                    <SongList {...props} />
-                </Panel>
+            {(login.isLoggedIn)&&
+            <div className="col s12 m4">
+                <History {...session}></History>
+                <Bookmark {...session}></Bookmark>
+            </div>}
+            <div className={(login.isLoggedIn)?"col m8":"col m12"}>
+                <SongList {...props}/>
             </div>
         </div>
+        </>
     )
 }
 

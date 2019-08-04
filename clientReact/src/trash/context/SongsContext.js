@@ -1,11 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import SongService from '../services/SongsService';
-import _ from 'lodash';
-
 const SongsContext = React.createContext([{}, ()=>{}]);
-
-
-
 const SongsProvider = (props) =>{
     const [songs, setSongs] = useState([]);
 
@@ -20,7 +15,7 @@ const SongsProvider = (props) =>{
     }
     const getSong = async (match)=>{
         const a = async()=>{
-            const songData = (await SongService.index()).data
+            await SongService.index()
         }
         return a
     }
@@ -30,6 +25,7 @@ const SongsProvider = (props) =>{
     return (
         <SongsContext.Provider value={{
                 songState:[songs, setSongs],
+                setSongs,
                 songs,
                 getSong
             }}>

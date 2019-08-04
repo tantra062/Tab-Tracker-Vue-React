@@ -1,22 +1,14 @@
-import React, {useEffect, useState, useContext} from 'react';
-import { SongsContext } from '../../context/SongsContext';
-import SearchContainer from '../../components/presentational/SearchContainer';
-import SongService from '../../services/SongsService'
-import qs from 'query-string'
+import React, {useState, useEffect} from 'react';
+import SearchContainer from './SearchContainer';
+import qs from 'query-string';
 import _ from 'lodash';
 
 const Search = (props)=>{
-    const {songState}= useContext(SongsContext)
-    const [songs,setSongs] = songState
     const [search, setSearch] = useState({search:""});
+
     const fetchData= async(query)=>{
-        try{
-            const sq = query.search
-            let songData = (await SongService.index(sq)).data 
-            setSongs(songData)
-        }catch(e){
-            console.log(e)
-        }
+        const sq = query.search;
+        props.setFetchType({action:'SONG', type:"index", payload:{search: sq, token:""} })
     }
     const handleChange = (e) =>{
         const { value, name } = e.target;
@@ -26,6 +18,12 @@ const Search = (props)=>{
         }))
         searchDebounced(value)
     }
+
+    /////////////////////////////////////////////////////
+    /// Need to research some more about lodash.      ///
+    /// Should only search after user finished typing ///
+    /////////////////////////////////////////////////////
+    
     const searchDebounced = _.debounce(function(value){
             props.history.push({
                 pathname:'/song',
@@ -34,6 +32,7 @@ const Search = (props)=>{
             fetchData({"search": value})
         },700
     )
+
     useEffect(()=>{
         const values = qs.parse(props.location.search)
         fetchData(values)
@@ -41,6 +40,7 @@ const Search = (props)=>{
 
     return (
         <SearchContainer name="search" value={search.search} handleChange={handleChange} />
+        // <></>
     )
 }
 

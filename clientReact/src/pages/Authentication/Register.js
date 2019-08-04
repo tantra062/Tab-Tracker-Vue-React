@@ -1,10 +1,10 @@
 import React from 'react';
 import Panel from '../../components/presentational/generic/Panel';
-import RegisterForm from '../../components/container/Register';
+import RegisterForm from '../../components/AuthenticationComponent/Form/Register';
 
-const Register = ()=>{
+const Register = (props)=>{
     return (<Panel title="Register">
-        <RegisterForm />
+        <RegisterForm {...props} />
     </Panel>
     )
 }

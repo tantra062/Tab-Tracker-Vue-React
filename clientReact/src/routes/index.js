@@ -6,6 +6,10 @@ import Achievements from '../components/container/Achievements.js';
 import Home from '../pages/Home';
 import Login from '../pages/Authentication/Login';
 import Register from '../pages/Authentication/Register';
+import Logout from '../pages/Authentication/Logout';
+
+
+
 // import Song from '../components/container/Song';
 import Song from '../pages/Songs/Songs';
 import SingleSong from '../pages/Songs/SingleSong';
@@ -14,7 +18,6 @@ import EditSong from '../pages/Songs/EditSong';
 
 
 const MissingPage = () => <h1>Missing Page: Error 404</h1>;
-const Logout = () => <h1>{localStorage.clear()}Logged out</h1>;
 
 
 const routes = (

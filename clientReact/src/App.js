@@ -5,22 +5,18 @@ import Navi from './components/container/Navi';
 import routes from './routes/index';
 import './assets/css/materialize.min.css';
 
-import {AuthenticationProvider} from './context/AuthenticationContext';
-import {SongsProvider} from './context/SongsContext'
+import Store from './components/AuthenticationComponent/Context/Store';
 
 function App() {
     return (
-        <AuthenticationProvider>
-            <SongsProvider>
-                <Router>
-                    <Navi />
-                    <div className="container col m12" >
-                        {routes}
-                    </div>
-                </Router>
-            </SongsProvider>
-        </AuthenticationProvider>
-
+        <Store>
+            <Router>
+                <Navi />
+                <div className="container col m12" >
+                    {routes}
+                </div>
+            </Router>
+        </Store>
     );
 }
 

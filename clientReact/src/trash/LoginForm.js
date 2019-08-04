@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
-import AuthenticationService from "../../services/AuthenticationService";
-import { AuthenticationContext } from "../../context/AuthenticationContext";
-import Text from "../presentational/form/TextBox";
-import Password from "../presentational/form/Password";
+import AuthenticationService from "../../../services/AuthenticationService";
+import { AuthenticationContext } from "../Context/AuthenticationContext";
+import Text from "../../presentational/form/TextBox";
+import Password from "../../presentational/form/Password";
 
 const Login = ()=>{
     const {authenticate} = useContext(AuthenticationContext)

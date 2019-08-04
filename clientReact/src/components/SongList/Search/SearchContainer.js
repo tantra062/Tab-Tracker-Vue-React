@@ -1,5 +1,5 @@
 import React from 'react';
-import Panel from '../presentational/generic/Panel';
+import Panel from '../../presentational/generic/Panel';
 
 const Search = ({name, value, handleChange}) => (
     <Panel title="Search">

@@ -1,10 +1,11 @@
 import React from 'react';
 
-const Collumns = ()=>{
+const Collumns = ({data})=>{
+    const List = data.map((data, key)=><tr key={key}><td>{data.title}</td><td>{data.artist}</td></tr>)
     return(
-        <div>
-
-        </div>
+        <tbody>
+            {List}
+        </tbody>
     )
 }
 export default Collumns;

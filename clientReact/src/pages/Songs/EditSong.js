@@ -1,81 +1,62 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, { useState, useEffect} from 'react';
 import Panel from '../../components/presentational/generic/Panel';
 import TextArea from '../../components/presentational/form/TextArea';
 import Text from '../../components/presentational/form/TextBox';
-import {SongsContext} from '../../context/SongsContext';
-import SongsServices from '../../services/SongsService';
-import SongsService from '../../services/SongsService';
+import useDataApi from '../../hooks/FetchHandler/useDataApi';
 
 
-const style = {
-    textAlign: "center"
-}
 export const EditSong = ({match}) =>{
-    const [data,setData] = useState({
-        album: "",
-        albumImageUrl: "",
-        artist: "",
-        genre: "",
-        id: 1,
-        lyrics: "",
-        tab: "",
-        title: "",
-        youtubeId: "",
-    });
-    const getSong = async()=>{
-        console.log(match.params.id)
-        const datas = (await SongsService.index(match.params.id)).data
-        setData(datas[0])
-    }
+    const [state, setFetchApi] = useDataApi({action:"SONG", type:"show", payload:{id: match.params.id, token:''}}, [{ album: "", albumImageUrl: "", artist: "", genre: "", id: 1, lyrics: "", tab: "",title: "",youtubeId: ""}]);
+    const [data,setData] = useState({isLoading:true});
+
     const handleChange= (e)=>{
-        console.log(e.target.value)
-        const {name, value} = e.target
-        setData((state)=>({
-            ...state,
-            [name]:value
+        const {name, value} = e.target;
+        setData((prevState)=>({
+            ...prevState,
+            data:{
+                ...prevState.data,
+                [name]:value
+            }
         }))
     }
     const onSubmit = (e)=>{
         e.preventDefault()
-        submit()
+        setFetchApi({action:"SONG", type:"update", payload:{payload:data.data, token: ""}})
     }
+    console.log(state)
     useEffect(()=>{
-        getSong()
-    },[])
-    async function submit(){
-        try{
-            const response = (await SongsServices.update(data)).data
-            console.log(response)
-        }catch(e){
-            console.log(e)
-        }
-    }
-    if(data){
-        return(
-            <div className="row">
-                <div className="col s12 l12">
-                    <Panel title="Edit">
-                        <form onSubmit={onSubmit}>
-                            <Text name="title" label="Title" value={data.title} handleChange={handleChange} />
-                            <Text name="artist" label="Artist/Band" value={data.artist} handleChange={handleChange} />
-                            <Text name="albumImg" label="Album Image" value={data.albumImageUrl} handleChange={handleChange} />
-                            <Text name="album" label="Album" value={data.album} handleChange={handleChange} />
-                            <Text name="youtubeUrl" label="Youtube ID" value={data.youtubeId} handleChange={handleChange} />
-                            <TextArea name="tab" label="Tab" value={data.tab} handleChange={handleChange} /> 
-                            <TextArea name="lyrics" label="Lyrics" value={data.lyrics} handleChange={handleChange} /> 
-                            <button type="submit">submit</button>
-                        </form>
-                    </Panel>
-                </div>
-            </div>
-        )
-    }
+        setData(state)
+    },[state.isLoading])
+
     return(
-        <div>
-            nothing
+        <div className="row">
+            <div className="col s12 l12">
+                <Panel title="Edit">
+                {(data.isLoading === false)&&
+                    <form onSubmit={onSubmit}>
+                        <Text name="title" label="Title" value={data.data.title} handleChange={handleChange} />
+                        <Text name="artist" label="Artist/Band" value={data.data.artist} handleChange={handleChange} />
+                        <Text name="albumImg" label="Album Image" value={data.data.albumImageUrl} handleChange={handleChange} />
+                        <Text name="album" label="Album" value={data.data.album} handleChange={handleChange} />
+                        <Text name="youtubeUrl" label="Youtube ID" value={data.data.youtubeId} handleChange={handleChange} />
+                        <TextArea name="tab" label="Tab" value={data.data.tab} handleChange={handleChange} /> 
+                        <TextArea name="lyrics" label="Lyrics" value={data.data.lyrics} handleChange={handleChange} /> 
+                        <button type="submit">submit</button>
+                    </form>
+                }
+                </Panel>
+            </div>
         </div>
     )
-   
 }
 
 export default EditSong
+
+// data: Array(1)
+//     0:
+//         artist: "Modest Mouse"
+
+// data: Array(1)
+//     0:
+//         title: "Float Ona"
+
