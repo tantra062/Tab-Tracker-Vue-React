@@ -4,7 +4,7 @@ const _ = require('lodash')
 module.exports = {
     async index(req, res){
         try{            
-            const {UserId} = req.query;//coming from JWT Token
+            const UserId = req.user.id;//coming from JWT Token
             const histories = await History.findAll({
                 where:{
                     UserId: UserId
@@ -16,9 +16,10 @@ module.exports = {
                 ]
             })
             .map(history => history.toJSON())
-            .map(history => _.extend({
-                historyId:history.id
-            }, history.Song))
+            .map(history => _.extend(
+                {}, 
+                history.Song,
+                history))
             res.send(histories)
         }catch(e){
             res.status(500).send({
